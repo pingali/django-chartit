@@ -3,7 +3,7 @@ import copy
 from django.db.models.aggregates import Aggregate
 from django.db.models.base import ModelBase
 from django.db.models.manager import Manager
-from django.db.models.query import QuerySet
+from django.db.models.query import QuerySet, RawQuerySet
 
 from .exceptions import APIInputError
 
@@ -60,7 +60,7 @@ def _clean_source(source):
         return source.all()
     elif isinstance(source, QuerySet):
         return source
-    elif isinstance(source, dict):
+    elif isinstance(source, RawQuerySet):
         return source
     raise APIInputError("'source' must either be a QuerySet, Model or "
                         "Manager. Got %s of type %s instead."  
