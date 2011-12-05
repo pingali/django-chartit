@@ -60,6 +60,8 @@ def _clean_source(source):
         return source.all()
     elif isinstance(source, QuerySet):
         return source
+    elif isinstance(source, dict):
+        return source
     raise APIInputError("'source' must either be a QuerySet, Model or "
                         "Manager. Got %s of type %s instead."  
                         %(source, type(source)))

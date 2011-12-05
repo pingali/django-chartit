@@ -123,7 +123,16 @@ class DataPool(object):
         # query_groups is a list of lists.
         for tk_td_tuples in self.query_groups:
             src = tk_td_tuples[0][1]['source']
-            vqs = src.values(*(td['field'] for (tk, td) in tk_td_tuples))
+            if isinstance(src, dict):
+                vqs = []
+                for a in src:
+                    h = dict([(tk, a[tk]) for (tk, td) in tk_td_tuples])
+                    print h
+                    vqs.append(h)
+            else:
+                vqs = src.values(*(td['field'] for (tk, td) in tk_td_tuples))
+            except: 
+                
             yield tk_td_tuples, vqs
     
     def _get_data(self):
